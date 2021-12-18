@@ -29,6 +29,19 @@ export const Main = class {
         return this
     }
 
+    async findAllByAttribute(name, value) {
+        const query = {}
+        query[name] = value
+        const instances = await this.collection.find(query).fetch()
+        
+        return instances.map(instance => {
+            const clone = Object.assign(Object.create(Object.getPrototypeOf(this)), this);
+            clone.attributes = this.schema.clean(instance ?? {})
+            clone.id = instance?._id ?? null
+            return clone;
+        });
+    }
+
     async createIfNotExsist(attributes) {
         if (!this.id) {
             this.attributes = attributes ?? null
