@@ -64,4 +64,8 @@ export const Main = class {
     get(name) {
         return this.attributes[name]
     }
+
+    exist() {
+        return !!this.id
+    }
 }

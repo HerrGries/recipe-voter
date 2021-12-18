@@ -4,6 +4,7 @@ import { RecipeController } from './../imports/controllers/recipeController.js'
 import { SuggestionController } from './../imports/controllers/suggestionController.js'
 import { VoteController } from './../imports/controllers/voteController.js'
 import { FamilyController } from './../imports/controllers/familyController.js'
+import { SeederController } from './../imports/seeder/seederController.js'
 
 Meteor.startup(() => {
   // Family/Families
@@ -31,4 +32,7 @@ Meteor.startup(() => {
   JsonRoutes.add("get", "api/votes/:id", (req, res, next) => voteController.getVotes(req, res, next));
   JsonRoutes.add("delete", "api/vote/:id", (req, res, next) => voteController.delete(req, res, next));
   JsonRoutes.add("post", "api/vote", (req, res, next) => voteController.create(req, res, next));
+
+  const seederController = new SeederController();
+  seederController.seed();
 });
